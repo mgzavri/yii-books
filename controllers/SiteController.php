@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Book;
 
 class SiteController extends Controller
 {
@@ -124,5 +125,12 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionBooks()
+    {
+        $books = Book::find()->with('category')->All();
+
+        return $this->render('books',['books'=>$books]);
     }
 }
