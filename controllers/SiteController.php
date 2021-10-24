@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Category;
+use app\models\CategorySearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -9,7 +11,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\Book;
+use yii\data\Pagination;
+use yii\data\Sort;
 
 class SiteController extends Controller
 {
@@ -62,7 +65,32 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $sort = new Sort([
+            'attributes' => [
+                'title',
+            ],
+        ]);
+        $searchModel = new CategorySearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $query = Category::find();
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+
+        $models =
+            $query->offset($pages->offset)
+                ->limit($pages->limit)
+                ->orderBy($sort->orders)
+                ->all();
+
+
+        return $this->render('index', [
+            'categories' => $models,
+            'pages' => $pages,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'sort' => $sort
+        ]);
     }
 
     /**
@@ -127,10 +155,5 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionBooks()
-    {
-        $books = Book::find()->with('category')->All();
 
-        return $this->render('books',['books'=>$books]);
-    }
 }

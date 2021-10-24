@@ -14,7 +14,7 @@ class m211022_083642_create_author_table extends Migration
     {
         $this->createTable('{{%author}}', [
             'id' => $this->primaryKey(),
-            'title'=>$this->string()->unique(),
+            'title'=>$this->string()->unique()->notNull(),
         ]);
     }
 
