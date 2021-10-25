@@ -1,8 +1,12 @@
 <?php
+
 use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
+/* @var $searchModel app\models\CategorySearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $pages app\models\Category */
 
 $this->title = 'Категории';
 $this->params['breadcrumbs'][] = ['label' => 'Категории', 'url' => ['index']];
@@ -19,12 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <div class="sort">
-        <?php echo $sort->link('title');  ?>
-    </div>
+
+    <!--<div class="sort">
+        <?php /*echo $sort->link('title');  */ ?>
+    </div>-->
     <div class="d-flex justify-content-between flex-wrap">
 
-        <?php foreach ($categories as $cats) : ?>
+        <?php foreach ($dataProvider->getModels() as $cats) : ?>
             <div class="card m-5" style="width: 20%;">
                 <div class="card-body">
                     <h5 class="card-title"><?= $cats->title; ?></h5>
@@ -35,10 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endforeach; ?>
 
     </div>
-    <?php
-    echo LinkPager::widget([
-        'pagination' => $pages,
-    ]); ?>
+    <?php echo LinkPager::widget(['pagination' => $dataProvider->pagination,]); ?>
 
 
 </div>

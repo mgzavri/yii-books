@@ -4,9 +4,10 @@
 namespace app\controllers;
 use app\models\Category;
 use app\models\CategorySearch;
+use Yii;
+use yii\base\BaseObject;
 use yii\data\Pagination;
 use yii\data\Sort;
-use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -15,17 +16,37 @@ class CategoryController extends Controller
 
      public function actionIndex()
      {
-         $sort = new Sort([
+
+         $searchModel = new CategorySearch();
+         $dataProvider = $searchModel->search($this->request->queryParams);
+         $dataProvider->pagination = ['pageSize' => 9];
+
+         $dataProvider->sort = new Sort([
+             'attributes' => [
+                 'title',
+             ],
+         ]);
+
+
+
+         return $this->render('index', [
+             'searchModel' => $searchModel,
+             'dataProvider' => $dataProvider
+         ]);
+
+
+        /* $sort = new Sort([
              'attributes' => [
                  'title',
              ],
          ]);
          $searchModel = new CategorySearch();
          $dataProvider = $searchModel->search($this->request->queryParams);
+         $dataProvider->pagination = ['pageSize'=>10];
 
          $query = Category::find();
          $countQuery = clone $query;
-         $pages = new Pagination(['totalCount' => $countQuery->count()]);
+         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 9]);
 
          $models =
              $query->offset($pages->offset)
@@ -35,12 +56,12 @@ class CategoryController extends Controller
 
 
          return $this->render('index', [
-             'categories' => $models,
-             'pages' => $pages,
+
+            'pages' => 10,
              'searchModel' => $searchModel,
              'dataProvider' => $dataProvider,
              'sort' => $sort
-         ]);
+         ]);*/
      }
 
     public function actionView($id){

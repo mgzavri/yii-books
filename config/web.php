@@ -10,6 +10,7 @@ $config = [
             'layout' => 'main'
         ],
     ],
+    'defaultRoute'=>'category/index',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],

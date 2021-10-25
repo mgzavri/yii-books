@@ -4,6 +4,7 @@ namespace app\models;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use olegsoft\firstOrCreate\FirstOrCreate;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 
 /**
@@ -112,6 +113,11 @@ class Book extends \yii\db\ActiveRecord
     public function getBookCategories()
     {
         return $this->hasMany(BookCategory::class, ['book_id' => 'id']);
+    }
+
+    public static function getStatusList(){
+        $status = Book::find()->select('status')->distinct(true)->all();
+        return ArrayHelper::map($status, 'status', 'status');
     }
 
 

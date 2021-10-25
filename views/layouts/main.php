@@ -31,29 +31,43 @@ AppAsset::register($this);
         'brandLabel' => 'YiiBooks',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
+            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top d-flex justify-content-between',
         ],
     ]);
+
+
+    $navItems = [
+        ['label' => 'Contact', 'url' => ['/site/contact']]];
+    $navItemsRight = array();
+    if (!Yii::$app->user->isGuest) {
+        if (Yii::$app->user->identity->username == 'admin') {
+            array_push($navItemsRight, ['label' => 'Админка', 'url' => ['/admin']]);
+        }
+
+    }
+
+
+    Yii::$app->user->isGuest ? (
+    array_push($navItemsRight, ['label' => 'Login', 'url' => ['/site/login']])
+    ) : (
+    array_push($navItemsRight, '<li>'
+        . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+        . Html::submitButton(
+            'Logout (' . Yii::$app->user->identity->username . ')',
+            ['class' => 'btn btn-link logout']
+        )
+        . Html::endForm()
+        . '</li>')
+    );
+
+
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-          ['label' => 'Books', 'url' => ['/category']],
-  /*            ['label' => 'Contact', 'url' => ['/site/contact']],
-*/
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $navItems,
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $navItemsRight,
     ]);
     NavBar::end();
     ?>

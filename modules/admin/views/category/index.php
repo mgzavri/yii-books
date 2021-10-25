@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Category;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -7,8 +8,6 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Categories';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
 
@@ -18,17 +17,24 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
+        'layout'=>"{pager}\n{items}",
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'title',
-            'parent',
+            [
+                'attribute'=>'parent',
+                'label'=>'Родительская категория',
+                'format'=>'text',
+                'content'=>function($data){
+                    return $data->getParentTitle();
+                },
+                'filter' => Category::getParentsList()
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

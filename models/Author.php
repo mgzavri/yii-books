@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 use olegsoft\firstOrCreate\FirstOrCreate;
+use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "author".
  *
@@ -56,6 +58,8 @@ class Author extends \yii\db\ActiveRecord
         return $this->hasMany(BookAuthor::class, ['author_id' => 'id']);
     }
 
+
+
     /**
      * Gets query for [[Books]].
      *
@@ -65,4 +69,20 @@ class Author extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Book::class, ['id' => 'book_id'])->viaTable('book_author', ['author_id' => 'id']);
     }
+
+    /**
+     * Gets query for [[GridView]].
+     */
+
+    public static function getAuthorList()
+    {
+        $authors = Author::find()
+            ->select(['id', 'title'])
+            ->distinct(true)
+            ->all();
+
+        return ArrayHelper::map($authors, 'id', 'title');
+    }
+
+
 }

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 use olegsoft\firstOrCreate\FirstOrCreate;
+use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "category".
  *
@@ -45,4 +47,27 @@ class Category extends \yii\db\ActiveRecord
             'parent' => 'Parent',
         ];
     }
+
+    public function getParent()
+    {
+        return $this->hasOne(Category::class, ['id' => 'parent']);
+    }
+
+    public function getParentTitle()
+    {
+        $parent = $this->parent;
+        return $parent ? $this::find()->where(['id' => $parent])->one()->title : '';
+    }
+    public static function getParentsList()
+    {
+        // Выбираем только те категории, у которых есть дочерние категории
+        $parents = Category::find()
+            ->select(['c.id', 'c.title'])
+            ->join('JOIN', 'category c', 'category.parent = c.id')
+            ->distinct(true)
+            ->all();
+
+        return ArrayHelper::map($parents, 'id', 'title');
+    }
+
 }

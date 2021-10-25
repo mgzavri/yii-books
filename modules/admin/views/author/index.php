@@ -7,8 +7,6 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\AuthorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Authors';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="author-index">
 
