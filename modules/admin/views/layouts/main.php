@@ -27,7 +27,7 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
 
 <div class="wrapper">
     <!-- Navbar -->
-    <?/*= $this->render('navbar', ['assetDir' => $assetDir]) */?>
+    <?= $this->render('navbar', ['assetDir' => $assetDir]) ?>
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->

@@ -13,7 +13,7 @@
                 <img src="<?=$assetDir?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">User</a>
             </div>
         </div>
 
@@ -50,7 +50,7 @@
                     ['label' => 'Authors', 'icon' => 'Level1', 'url' => ['author/index']],
                     ['label' => 'Categories', 'icon' => 'Level1', 'url' => ['category/index']],
                     ['label' => 'Actions', 'header' => true],
-                    ['label' => 'Upload JSON', 'icon' => 'Level1', 'url' => ['admin/upload/index']],
+                    ['label' => 'Upload JSON', 'icon' => 'Level1', 'url' => ['upload/index']],
                    /* ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
                     ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
                     ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],

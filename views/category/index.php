@@ -1,8 +1,14 @@
 <?php
 use yii\bootstrap4\LinkPager;
+use yii\helpers\Html;
+
 /* @var $this yii\web\View */
 
-$this->title = 'YiiBooks';
+$this->title = 'Категории';
+$this->params['breadcrumbs'][] = ['label' => 'Категории', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+
+
 ?>
 <div class="site-index">
 
@@ -22,7 +28,8 @@ $this->title = 'YiiBooks';
             <div class="card m-5" style="width: 20%;">
                 <div class="card-body">
                     <h5 class="card-title"><?= $cats->title; ?></h5>
-                    <a href="#" class="btn btn-primary">В категорию</a>
+                    <?= Html::a('В категорию', ['category/view', 'id' => $cats->id], ['class' => 'btn btn-primary']) ?>
+
                 </div>
             </div>
         <?php endforeach; ?>

@@ -3,18 +3,19 @@
 
 namespace app\commands;
 
-use app\models\Author;
 use app\models\Book;
 use yii\console\Controller;
-use app\models\Category;
 
 
 class UploadController extends Controller
 {
-    public function actionIndex()
+    public function actionIndex($url = 'https://gitlab.com/prog-positron/test-app-vacancy/-/raw/master/books.json')
     {
         echo 'start' . PHP_EOL;
-        if ($this->uploadJSON()) {
+
+
+
+        if ($this->uploadJSON($url)) {
             echo 'uploaded' . PHP_EOL;
         } else {
             echo 'error' . PHP_EOL;
@@ -23,14 +24,9 @@ class UploadController extends Controller
         die;
     }
 
-    private function uploadJSON()
+    private function uploadJSON($url)
     {
 
-        /**
-         * получаем json с книжками из захардкоженного Url
-         */
-
-        $url = 'https://gitlab.com/prog-positron/test-app-vacancy/-/raw/master/books.json';
         $json = file_get_contents($url);
 
 
@@ -47,22 +43,22 @@ class UploadController extends Controller
         }
 
         echo '================= Обновляем список категорий ================' . PHP_EOL;
-        //  $this->addEntry('Category', $json_categories);
+          $this->addEntry('Category', $json_categories);
 
         echo '================= Обновляем список авторов ================' . PHP_EOL;
-        //  $this->addEntry('Author', $json_authors);
+         $this->addEntry('Author', $json_authors);
 
         echo '================= Обновляем список книг ================' . PHP_EOL;
 
         $this->addBooks($books);
 
-
+        // можно проверку на ошибки реализовать
         return true;
     }
 
     private function addBooks($books)
     {
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < sizeof($books); $i++) {
             $isbn = $books[$i]['isbn'] ?? '';
             $title = $books[$i]['title'] ?? '';
 
@@ -102,10 +98,14 @@ class UploadController extends Controller
     private function getIDs($class, $array)
     {
         $class = 'app\models\\' . $class;
-        if (is_array($array)) {
+        $ids = array();
+        if (is_array($array) && !empty($array)) {
             foreach ($array as $arr) {
-                $row = $class::findOne(['title' => $arr])->toArray();
-                $ids[] = $row['id'];
+                if (!empty($arr)){
+                    $row = $class::findOne(['title' => $arr])->toArray();
+                    $ids[] = $row['id'];
+                }
+
             }
         }
 

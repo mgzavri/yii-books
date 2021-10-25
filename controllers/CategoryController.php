@@ -8,10 +8,10 @@ use yii\data\Pagination;
 use yii\data\Sort;
 use Yii;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class CategoryController extends Controller
 {
-
 
      public function actionIndex()
      {
@@ -45,6 +45,18 @@ class CategoryController extends Controller
 
     public function actionView($id){
         $id = Yii::$app->request->get('id');
-        echo $id;
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
     }
+
+    protected function findModel($id)
+    {
+        if (($model = Category::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
 }
