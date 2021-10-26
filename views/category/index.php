@@ -29,14 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>-->
     <div class="d-flex justify-content-between flex-wrap">
 
-        <?php foreach ($dataProvider->getModels() as $cats) : ?>
-            <div class="card m-5" style="width: 20%;">
-                <div class="card-body">
-                    <h5 class="card-title"><?= $cats->title; ?></h5>
-                    <?= Html::a('В категорию', ['category/view', 'id' => $cats->id], ['class' => 'btn btn-primary']) ?>
+        <?php foreach ($dataProvider->getModels() as $cats) :
+            $block = ' <div class="" >
+                        <div class="card-body">
+                        <h5 class="card-title">'.$cats->title.'</h5>
+                        </div>
+                        </div>';
+            ?>
 
-                </div>
-            </div>
+
+            <?= Html::a($block, ['category/view', 'id' => $cats->id], ['class' => 'card category_block']) ?>
         <?php endforeach; ?>
 
     </div>

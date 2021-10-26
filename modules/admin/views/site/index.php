@@ -1,6 +1,5 @@
 <?php
 $this->title = 'Starter Page';
-$this->params['breadcrumbs'] = [['label' => 'Главная']];
 ?>
 <div class="container-fluid">
     <div class="row">

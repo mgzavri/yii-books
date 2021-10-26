@@ -2,11 +2,11 @@
 
 
 namespace app\controllers;
+use app\models\Book;
 use app\models\Category;
 use app\models\CategorySearch;
+use app\models\Config;
 use Yii;
-use yii\base\BaseObject;
-use yii\data\Pagination;
 use yii\data\Sort;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -16,10 +16,16 @@ class CategoryController extends Controller
 
      public function actionIndex()
      {
+        /*
+         * $itemsNum - для настройки количества вывода на страницу,
+         * настройте параметр items_per_page в Админке Controls->Settings
+        */
 
+         $itemsNum = Config::find()->select(['items_per_page'])->one();
+         $items = $itemsNum->items_per_page ?? 20;
          $searchModel = new CategorySearch();
          $dataProvider = $searchModel->search($this->request->queryParams);
-         $dataProvider->pagination = ['pageSize' => 9];
+         $dataProvider->pagination = ['pageSize' => $items];
 
          $dataProvider->sort = new Sort([
              'attributes' => [
@@ -40,44 +46,23 @@ class CategoryController extends Controller
                  'title',
              ],
          ]);
-         $searchModel = new CategorySearch();
-         $dataProvider = $searchModel->search($this->request->queryParams);
-         $dataProvider->pagination = ['pageSize'=>10];
-
-         $query = Category::find();
-         $countQuery = clone $query;
-         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 9]);
-
-         $models =
-             $query->offset($pages->offset)
-                 ->limit($pages->limit)
-                 ->orderBy($sort->orders)
-                 ->all();
-
-
-         return $this->render('index', [
-
-            'pages' => 10,
-             'searchModel' => $searchModel,
-             'dataProvider' => $dataProvider,
-             'sort' => $sort
-         ]);*/
+        */
      }
 
-    public function actionView($id){
+    public function actionView(){
         $id = Yii::$app->request->get('id');
+        $model = Category::getAllById($id);
+        $children = Category::getChildren($id);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'children' =>$children
         ]);
     }
 
-    protected function findModel($id)
-    {
-        if (($model = Category::findOne($id)) !== null) {
-            return $model;
-        }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
+
+
+
 
 }

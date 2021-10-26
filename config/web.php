@@ -33,6 +33,13 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'reCAPTCHA.siteKey' => '6LfbHCMTAAAAALpYo10Vo-Ubk09HBWKj12d7EvYx',
+        'reCAPTCHA.secretKey' => '6LfbHCMTAAAAAA4Jd1yM5o_I3P18qOyueMNoJmTy',
+        /*'reCaptcha3' => [
+            'class'      => 'kekaadrenalin\recaptcha3\ReCaptcha',
+            'site_key'   => '6LfbHCMTAAAAALpYo10Vo-Ubk09HBWKj12d7EvYx',
+            'secret_key' => '6LfbHCMTAAAAAA4Jd1yM5o_I3P18qOyueMNoJmTy',
+        ],*/
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set

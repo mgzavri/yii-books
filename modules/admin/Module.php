@@ -21,7 +21,6 @@ class Module extends \yii\base\Module
                     [
                         'allow' => true,
                         'matchCallback' => function ($rule, $action) {
-                            echo Yii::$app->user->identity->username;
                             return Yii::$app->user->identity->username =='admin';
                         }
                     ]

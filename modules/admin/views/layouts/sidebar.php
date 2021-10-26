@@ -45,12 +45,15 @@
                         ]
                     ],*/
 
-                    ['label' => 'CRUDs', 'header' => true],
+                    ['label' => 'Instances', 'header' => true],
                     ['label' => 'Books', 'icon' => 'Level1', 'url' => ['book/index']],
                     ['label' => 'Authors', 'icon' => 'Level1', 'url' => ['author/index']],
                     ['label' => 'Categories', 'icon' => 'Level1', 'url' => ['category/index']],
-                    ['label' => 'Actions', 'header' => true],
+                    ['label' => 'Additional', 'header' => true],
                     ['label' => 'Upload JSON', 'icon' => 'Level1', 'url' => ['upload/index']],
+                    ['label' => 'Controls', 'header' => true],
+                    ['label' => 'Settings', 'icon' => 'Level1', 'url' => ['config/index']],
+                    ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
                    /* ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
                     ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
                     ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
