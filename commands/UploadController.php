@@ -14,7 +14,7 @@ class UploadController extends Controller
     {
         echo 'start' . PHP_EOL;
 
-           $url = Yii::$app->config->json_url;
+           $url = Yii::$app->config->json_url ?? 'https://gitlab.com/prog-positron/test-app-vacancy/-/raw/master/books.json';
 
 //TODO обернуть в try ... catch
 
