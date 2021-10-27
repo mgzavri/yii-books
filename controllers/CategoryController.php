@@ -26,7 +26,11 @@ class CategoryController extends Controller
          * добавьте параметр items_per_pages в Админке Controls->Settings
         */
 
-         $items = Yii::$app->config->items_per_pages>0 ? Yii::$app->config->items_per_pages: 20;
+         if (property_exists(Yii::$app->config,'items_per_pages')){
+             $items = Yii::$app->config->items_per_pages;
+         }else{
+             $items   =  20;
+         }
          $searchModel = new CategorySearch();
          $dataProvider = $searchModel->search($this->request->queryParams);
          $dataProvider->pagination = ['pageSize' => $items];
@@ -55,7 +59,12 @@ class CategoryController extends Controller
 
     public function actionView(){
         $id = Yii::$app->request->get('id');
-        $items = Yii::$app->config->items_per_pages>0 ? Yii::$app->config->items_per_pages: 20;
+        if (property_exists(Yii::$app->config,'items_per_pages')){
+        $items = Yii::$app->config->items_per_pages;
+        }else{
+            $items   =  20;
+        }
+
 
         $dataProvider = Category::getBooksByCatID($id);
         $dataProvider->pagination = ['pageSize' => $items];

@@ -13,8 +13,12 @@ class UploadController extends Controller
     public function actionIndex()
     {
         echo 'start' . PHP_EOL;
+        if (property_exists(Yii::$app->config,'json_url')){
+            $url = Yii::$app->config->json_url;
+        }else{
+            $url   =  'https://gitlab.com/prog-positron/test-app-vacancy/-/raw/master/books.json';
+        }
 
-           $url = Yii::$app->config->json_url ?? 'https://gitlab.com/prog-positron/test-app-vacancy/-/raw/master/books.json';
 
 //TODO обернуть в try ... catch
 

@@ -123,7 +123,13 @@ class SiteController extends Controller
 
 
         $model = new ContactForm();
-        $adminEmail = Yii::$app->config->adminEmail ?? Yii::$app->params['adminEmail'];
+
+        if (property_exists(Yii::$app->config,'adminEmail')){
+            $adminEmail = Yii::$app->config->adminEmail;
+        }else{
+            $adminEmail   =  Yii::$app->params['adminEmail'];
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->contact($adminEmail)) {
             Yii::$app->session->setFlash('contactFormSubmitted');
 
