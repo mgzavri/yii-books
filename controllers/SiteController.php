@@ -88,7 +88,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect('https://yiibooks.io/index.php?r=admin');
+            return $this->redirect('/admin');
         }
 
         $model->password = '';

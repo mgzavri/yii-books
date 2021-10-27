@@ -9,6 +9,7 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -41,7 +42,9 @@ AppAsset::register($this);
     $navItemsRight = array();
     if (!Yii::$app->user->isGuest) {
         if (Yii::$app->user->identity->username == 'admin') {
-            array_push($navItemsRight, ['label' => 'Админка', 'url' => ['/admin']]);
+    $adminUrl = Url::to(['/admin']);
+
+            array_push($navItemsRight, ['label' => 'Админка', 'url' => [$adminUrl]]);
         }
 
     }
