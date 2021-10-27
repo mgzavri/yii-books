@@ -1,16 +1,15 @@
 <?php
+/**
+ * Вывод списка корневых категорий
+ */
 
 use yii\bootstrap4\LinkPager;
-use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $pages app\models\Category */
-
-$this->title = 'Категории';
-$this->params['breadcrumbs'][] = ['label' => 'Категории', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 
 
 ?>
@@ -27,22 +26,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <!--<div class="sort">
         <?php /*echo $sort->link('title');  */ ?>
     </div>-->
-    <div class="d-flex justify-content-between flex-wrap">
 
-        <?php foreach ($dataProvider->getModels() as $cats) :
-            $block = ' <div class="" >
-                        <div class="card-body">
-                        <h5 class="card-title">'.$cats->title.'</h5>
-                        </div>
-                        </div>';
+
+      <?php  if (!empty($dataProvider->getModels())) { ?>
+          <div class="d-flex justify-content-between flex-wrap">
+            <?php foreach ($dataProvider->getModels() as $cat) :
+                $url = Url::to(['category/view', 'id' => $cat['id'] ]);?>
+
+                <div class="category">
+                    <a href="<?= $url ?>">
+                        <div class="category_img"></div>
+                    </a>
+                    <h5 class="card-title"><?= $cat->title ?></h5>
+                    <div class="catfooter">
+                        <p class="card-text"><small class="text-muted">Книг в категории: <?= sizeof($cat->books)?></small></p>
+                    </div>
+                </div>
+            <?php endforeach;
+
             ?>
 
-
-            <?= Html::a($block, ['category/view', 'id' => $cats->id], ['class' => 'card category_block']) ?>
-        <?php endforeach; ?>
-
     </div>
-    <?php echo LinkPager::widget(['pagination' => $dataProvider->pagination,]); ?>
+
+<?php echo LinkPager::widget(['pagination' => $dataProvider->pagination,]); ?>
+<?php } ?>
 
 
 </div>

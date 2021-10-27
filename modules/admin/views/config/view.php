@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'items_per_page',
-            'adminEmail:email',
+            'param',
+            'value',
         ],
     ]) ?>
 

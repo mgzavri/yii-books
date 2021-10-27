@@ -49,8 +49,6 @@
                     ['label' => 'Books', 'icon' => 'Level1', 'url' => ['book/index']],
                     ['label' => 'Authors', 'icon' => 'Level1', 'url' => ['author/index']],
                     ['label' => 'Categories', 'icon' => 'Level1', 'url' => ['category/index']],
-                    ['label' => 'Additional', 'header' => true],
-                    ['label' => 'Upload JSON', 'icon' => 'Level1', 'url' => ['upload/index']],
                     ['label' => 'Controls', 'header' => true],
                     ['label' => 'Settings', 'icon' => 'Level1', 'url' => ['config/index']],
                     ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],

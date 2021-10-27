@@ -8,6 +8,7 @@ use app\models\Category;
 use app\models\CategorySearch;
 use yii\data\Pagination;
 use yii\data\Sort;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +21,9 @@ class BookController extends Controller
     /**
      * @inheritDoc
      */
+
+
+
     public function behaviors()
     {
         return array_merge(
@@ -39,7 +43,7 @@ class BookController extends Controller
      * Lists all Book models.
      * @return mixed
      */
-    public function actionIndex()
+ /*   public function actionIndex()
     {
         $sort = new Sort([
             'attributes' => [
@@ -68,7 +72,7 @@ class BookController extends Controller
             'dataProvider' => $dataProvider,
             'sort' => $sort
         ]);
-    }
+    }*/
 
     /**
      * Displays a single Book model.
@@ -78,8 +82,10 @@ class BookController extends Controller
      */
     public function actionView($id)
     {
+        $books = Book::findOne(['id'=>$id]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'book' => $books,
+
         ]);
     }
 

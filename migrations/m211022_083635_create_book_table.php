@@ -1,7 +1,7 @@
 <?php
 
 use yii\db\Migration;
-
+use yii\web\YiiAsset;
 /**
  * Handles the creation of table `{{%book}}`.
  */

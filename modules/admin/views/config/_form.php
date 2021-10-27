@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'items_per_page')->textInput() ?>
+    <?= $form->field($model, 'param')->textInput() ?>
 
-    <?= $form->field($model, 'adminEmail')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

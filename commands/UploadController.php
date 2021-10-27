@@ -4,34 +4,37 @@
 namespace app\commands;
 
 use app\models\Book;
+use Yii;
 use yii\console\Controller;
 
 
 class UploadController extends Controller
 {
-    public function actionIndex($url = 'https://gitlab.com/prog-positron/test-app-vacancy/-/raw/master/books.json')
+    public function actionIndex()
     {
         echo 'start' . PHP_EOL;
 
+           $url = Yii::$app->config->json_url;
+
+//TODO обернуть в try ... catch
+
+            if ($this->uploadJSON($url)) {
+                echo 'uploaded' . PHP_EOL;
+            } else {
+                echo 'Укажите в настройках правильную ссылку на json файл. Вы пытаетесь получить данные из: '. $url . PHP_EOL;
+                echo 'error' . PHP_EOL;
+            }
 
 
-        if ($this->uploadJSON($url)) {
-            echo 'uploaded' . PHP_EOL;
-        } else {
-            echo 'error' . PHP_EOL;
-        }
 
         die;
     }
 
     private function uploadJSON($url)
     {
-
         $json = file_get_contents($url);
-
-
         $books = json_decode($json, true);
-
+        if (!is_array($books)){ return false;}
         $json_authors = array();
         $json_categories = array();
 
@@ -83,6 +86,7 @@ class UploadController extends Controller
             $book->isbn = $isbn;
             $book->pageCount = $books[$i]['pageCount'] ?? 0;
             $book->publishedDate = $publishDate;
+            $book->thumbnailUrl = $books[$i]['thumbnailUrl'] ?? null;
             $book->shortDescription = $books[$i]['shortDescription'] ?? null;
             $book->longDescription = $books[$i]['longDescription'] ?? null;
             $book->status = $books[$i]['status'] ?? null;
@@ -135,4 +139,6 @@ class UploadController extends Controller
         }
 
     }
+
+
 }

@@ -1,5 +1,4 @@
 <?php
-
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -19,6 +18,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'config' => [
+            'class' => 'app\components\Config',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'HAMEg7YvfUAWawZpDrqadzZiSAmZILki',
@@ -33,13 +35,7 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'reCAPTCHA.siteKey' => '6LfbHCMTAAAAALpYo10Vo-Ubk09HBWKj12d7EvYx',
-        'reCAPTCHA.secretKey' => '6LfbHCMTAAAAAA4Jd1yM5o_I3P18qOyueMNoJmTy',
-        /*'reCaptcha3' => [
-            'class'      => 'kekaadrenalin\recaptcha3\ReCaptcha',
-            'site_key'   => '6LfbHCMTAAAAALpYo10Vo-Ubk09HBWKj12d7EvYx',
-            'secret_key' => '6LfbHCMTAAAAAA4Jd1yM5o_I3P18qOyueMNoJmTy',
-        ],*/
+
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
@@ -59,7 +55,7 @@ $config = [
         'db' => $db,
 
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [

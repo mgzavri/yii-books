@@ -1,6 +1,7 @@
 <?php
 
 use yii\db\Migration;
+use yii\web\YiiAsset;
 
 /**
  * Handles the creation of table `{{%config}}`.
@@ -14,8 +15,8 @@ class m211026_053405_create_config_table extends Migration
     {
         $this->createTable('{{%config}}', [
             'id' => $this->primaryKey(),
-            'items_per_page' => $this->integer(),
-            'adminEmail' => $this->string(),
+            'param' => $this->string(),
+            'value' => $this->string(),
         ]);
     }
 

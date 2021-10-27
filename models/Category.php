@@ -2,9 +2,8 @@
 
 namespace app\models;
 
-use phpDocumentor\Reflection\Type;
-use Yii;
 use olegsoft\firstOrCreate\FirstOrCreate;
+use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -71,8 +70,13 @@ class Category extends \yii\db\ActiveRecord
         return ArrayHelper::map($parents, 'id', 'title');
     }
 
-    public static function getAllById($id){
-        return Category::find()->with('books')->where(['id'=>$id])->asArray()->one();
+    public static function getBooksByCatID($id)
+    {
+        $query = Category::findOne(['id' => $id])->getBooks();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        return $dataProvider;
     }
 
     public static function getChildren($id){

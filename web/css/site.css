@@ -82,8 +82,24 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
-.category_block{
-    width: 25%;
-    margin: 1rem;
+.items_container{
+    margin-top: 100px;
+}
+.category{
+    width:200px;
+    height:auto;
+    text-align: center;
+    margin: 10px 20px;
+}
+.category_img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: url(/assets/images/books.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+}
+.catfooter{
 
 }

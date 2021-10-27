@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "config".
  *
  * @property int $id
- * @property int|null $items_per_page
- * @property string|null $adminEmail
+ * @property int|null $param
+ * @property string|null $value
  */
 class Config extends \yii\db\ActiveRecord
 {
@@ -27,8 +27,8 @@ class Config extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['items_per_page'], 'integer'],
-            [['adminEmail'], 'string', 'max' => 255],
+            [['param'], 'string'],
+            [['value'], 'string', 'max' => 255],
         ];
     }
 
@@ -39,8 +39,8 @@ class Config extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'items_per_page' => 'Items Per Page',
-            'adminEmail' => 'Admin Email',
+            'param' => 'Param',
+            'value' => 'Value',
         ];
     }
 }

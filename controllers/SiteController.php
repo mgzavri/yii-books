@@ -116,8 +116,14 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
+        /*
+        * $adminEmail - настройка админской почты,
+        * добавьте параметр adminEmail в Админке Controls->Settings
+       */
+
+
         $model = new ContactForm();
-        $adminEmail = Config::findOne(['param'=>'adminEmail'])->value ?? Yii::$app->params['adminEmail'];
+        $adminEmail = Yii::$app->config->adminEmail ?? Yii::$app->params['adminEmail'];
         if ($model->load(Yii::$app->request->post()) && $model->contact($adminEmail)) {
             Yii::$app->session->setFlash('contactFormSubmitted');
 
